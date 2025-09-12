@@ -1,11 +1,18 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import appFooter from './components/app-footer.vue'
+import appHeader from './components/app-header.vue'
+
+import HomePage from './pages/home-page.vue'
+import { useThemeProvider } from './utils/theme-provider'
+useThemeProvider()
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <div>
+    <appHeader />
+    <HomePage />
+    <appFooter />
+  </div>
 </template>
 
 <style scoped></style>
