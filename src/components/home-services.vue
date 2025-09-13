@@ -1,25 +1,30 @@
 <script setup lang="ts">
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
+import ImageWithFallback from '@/components/image-with-fallback.vue'
 const rentalFees = [
     {
         title: 'Spending < $1000 / day',
         fee: '6%',
         description: 'Ideal for small-scale campaigns with flexible budget.',
+        image: 'b3d7df85-e875-4ab8-aa5c-408e16b67025.jpg'
     },
     {
         title: 'Spending $1000 - $5000 / day',
         fee: '5%',
         description: 'Best for growing businesses looking to scale ads effectively.',
+        image: 'e31b0ed0-50cd-49f2-a633-0fe998d6bde3.jpg',
     },
     {
         title: 'Spending $5000 - $10000 / day',
         fee: '4%',
         description: 'Optimized pricing for medium to large advertisers.',
+        image: 'f414d57f-99ff-4328-9776-4afef036c114.jpg',
     },
     {
         title: 'Spending > $10000 / day',
         fee: '3%',
         description: 'Lowest fee tier for high-volume advertising spend.',
+        image: 'b3d7df85-e875-4ab8-aa5c-408e16b67025.jpg',
     },
 ]
 
@@ -51,7 +56,7 @@ const servicesData = [
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                     <span class="text-blue-600"> Adventages </span>
-                    of Choosing Us 
+                    of Choosing Us
                 </h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">
                     We offer comprehensive marketing solutions to help your business grow, from strategy development to
@@ -86,8 +91,8 @@ const servicesData = [
             <!-- Pricing -->
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                    Advertising Account 
-                    <span class="text-blue-600"> Rental Fee  </span>
+                    Advertising Account
+                    <span class="text-blue-600"> Rental Fee </span>
                 </h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">
                     Transparent and flexible pricing based on your daily advertising spend.
@@ -99,9 +104,12 @@ const servicesData = [
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <Card v-for="(item, index) in rentalFees" :key="index"
                     class="group bg-white border border-blue-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300">
-                    <CardHeader class="text-center">
+                    <CardHeader class="text-center max-h-9">
                         <CardTitle class="text-lg font-semibold text-gray-800">{{ item.title }}</CardTitle>
                     </CardHeader>
+                    <div class="relative">
+                        <ImageWithFallback :src="item.image" :alt="item.title" class="w-full h-48 object-cover" />
+                    </div>
                     <CardContent class="flex flex-col items-center text-center">
                         <p
                             class="text-5xl font-extrabold text-blue-600 mb-4 group-hover:scale-110 transition-transform">

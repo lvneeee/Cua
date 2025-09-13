@@ -35,14 +35,6 @@
 				<div class="space-y-4">
 					<h4 class="font-semibold">Contact Info</h4>
 					<div class="space-y-3 text-sm">
-						<div class="flex items-start space-x-2">
-							<span class="text-gray-400">📍</span>
-							<span class="text-gray-400">
-								<a href="https://www.google.com/maps?q=My+Dinh,+Ha+Noi,+Viet+Nam" target="_blank"
-									rel="noopener" class="text-gray-400 hover:text-white transition-colors"> My
-									Dinh, Ha Noi, Viet Nam </a>
-							</span>
-						</div>
 						<div class="flex items-center space-x-2">
 							<span class="text-gray-400">📞</span>
 							<a href="tel:+84395356631" class="text-gray-400 hover:text-white transition-colors">+84
