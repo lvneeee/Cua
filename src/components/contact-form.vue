@@ -24,7 +24,7 @@ const schema = z.object({
     .min(9, "Phone must be at least 9 digits")
     .regex(/^[0-9]+$/, "Phone must contain only numbers"),
   company: z.string().optional(),
-  project: z.string().optional(),
+  goal: z.string().optional(),
 })
 
 // ✅ Type của form values
