@@ -29,7 +29,7 @@ const product = [
 </script>
 
 <template>
-  <section id="portfolio-section" class="py-20 bg-white">
+  <section id="products-section" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Header -->
         <div class="space-y-4 mb-8">

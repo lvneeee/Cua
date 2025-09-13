@@ -48,11 +48,10 @@ import Button from '@/components/ui/button/Button.vue'
 /* Navigation items */
 const navItems = [
   { page: 'home', label: 'Home' },
+  { page: 'products', label: 'Products' },
   { page: 'services', label: 'Services' },
   { page: 'about', label: 'About' },
-  { page: 'portfolio', label: 'Portfolio' },
   { page: 'contact', label: 'Contact' },
-  { page: 'products', label: 'Products' },
 ]
 
 const currentPage = ref('home')
