@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useForm } from 'vee-validate'
+import { useForm, type SubmissionHandler } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
 
@@ -37,8 +37,11 @@ const form = useForm<FormValues>({
 
 const loading = ref(false)
 
-// ✅ onSubmit có type chính xác
-const onSubmit = form.handleSubmit(async (values: FormValues) => {
+// ✅ onSubmit với error handling
+const onSubmit: SubmissionHandler<FormValues> = async (values, ctx) => {
+  // Validation errors are handled before onSubmit is called
+
+  if (loading.value) return
   loading.value = true
   try {
     const res = await fetch('https://sheetdb.io/api/v1/ptztq539x5snp', {
@@ -47,40 +50,42 @@ const onSubmit = form.handleSubmit(async (values: FormValues) => {
       body: JSON.stringify({ data: [values] }),
     })
 
+    if (!res.ok) throw new Error("Network error")
     const data = await res.json()
     console.log('✅ Saved:', data)
+
     alert('Gửi thành công!')
     form.resetForm()
   } catch (err) {
     console.error(err)
-    alert('Gửi thất bại!')
+    alert('❌ Gửi thất bại, vui lòng thử lại!')
   } finally {
     loading.value = false
   }
-})
+}
 </script>
 
 <template>
-  <!-- Lưu ý: dùng :onSubmit thay vì @submit -->
-  <Form v-slot="{ errors }" :onSubmit="onSubmit" class="space-y-6 w-full">
+  <!-- Dùng prop onSubmit -->
+  <Form :onSubmit="onSubmit as any" class="space-y-6 w-full">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
       <!-- Full Name -->
-      <FormField name="fullName">
+      <FormField name="fullName" v-slot="{ componentField }">
         <FormItem>
           <FormLabel>Full Name *</FormLabel>
           <FormControl>
-            <Input type="text" placeholder="Full Name" />
+            <Input type="text" placeholder="Full Name" v-bind="componentField" />
           </FormControl>
           <FormMessage />
         </FormItem>
       </FormField>
 
       <!-- Email -->
-      <FormField name="email">
+      <FormField name="email" v-slot="{ componentField }">
         <FormItem>
           <FormLabel>Email *</FormLabel>
           <FormControl>
-            <Input type="email" placeholder="Email" />
+            <Input type="email" placeholder="Email" v-bind="componentField" />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -88,33 +93,37 @@ const onSubmit = form.handleSubmit(async (values: FormValues) => {
     </div>
 
     <!-- Phone -->
-    <FormField name="phone">
+    <FormField name="phone" v-slot="{ componentField }">
       <FormItem>
         <FormLabel>Phone Number *</FormLabel>
         <FormControl>
-          <Input type="text" placeholder="Phone Number" />
+          <Input type="text" placeholder="Phone Number" v-bind="componentField" />
         </FormControl>
         <FormMessage />
       </FormItem>
     </FormField>
 
     <!-- Company -->
-    <FormField name="company">
+    <FormField name="company" v-slot="{ componentField }">
       <FormItem>
         <FormLabel>Company Name</FormLabel>
         <FormControl>
-          <Input type="text" placeholder="Company Name" />
+          <Input type="text" placeholder="Company Name" v-bind="componentField" />
         </FormControl>
         <FormMessage />
       </FormItem>
     </FormField>
 
     <!-- Project -->
-    <FormField name="project">
+    <FormField name="project" v-slot="{ componentField }">
       <FormItem>
         <FormLabel>Project & Marketing Goals</FormLabel>
         <FormControl>
-          <Textarea placeholder="Describe your project and marketing goals..." rows="4" />
+          <Textarea
+            placeholder="Describe your project and marketing goals..."
+            rows="4"
+            v-bind="componentField"
+          />
         </FormControl>
         <FormMessage />
       </FormItem>
